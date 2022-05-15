@@ -40,6 +40,10 @@ class Car {
     }
 
     update() {
+        this.#move();
+    }
+
+    #move() {
         // Forw
         if (this.controls.forward) {
             this.speed += this.accel;
@@ -75,7 +79,7 @@ class Car {
             this.speed = 0;
         }
 
-        const flipSteerDirection = this.speed > 0 ? 1 : -1; // fix flipped reverse steering direction
+        const flipSteerDirection = this.speed < 0 ? -1 : 1; // fix flipped reverse steering direction
 
         // Left
         if (this.controls.left) {
@@ -91,4 +95,5 @@ class Car {
         this.x -= Math.sin(this.angle) * this.speed;
         this.y -= Math.cos(this.angle) * this.speed;
     }
+    
 }
