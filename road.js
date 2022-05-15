@@ -14,6 +14,15 @@ class Road {
         this.bottom =  infinity;
     }
 
+    getLaneCenter(laneIndex) {
+        // Prevent out of bound
+        laneIndex = Math.max(laneIndex, 0);
+        laneIndex = Math.min(laneIndex, this.laneCount);
+        
+        const laneWidth = this.width / this.laneCount;
+        return (this.left) + (laneIndex * laneWidth) + (laneWidth / 2);
+    }
+
     draw(ctx) {
         ctx.lineWidth = 5;
         ctx.strokeStyle = "white";
