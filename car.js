@@ -75,14 +75,16 @@ class Car {
             this.speed = 0;
         }
 
+        const flipSteerDirection = this.speed > 0 ? 1 : -1; // fix flipped reverse steering direction
+
         // Left
         if (this.controls.left) {
-            this.angle += 0.03;
+            this.angle += 0.03 * flipSteerDirection;
         }
 
         // Right
         if (this.controls.right) {
-            this.angle -= 0.03;
+            this.angle -= 0.03 * flipSteerDirection;
         }
 
         // Update speed
