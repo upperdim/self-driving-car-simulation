@@ -13,34 +13,13 @@ class Car {
         // Coord sys: Unit circle rotated 90 degrees counter-clockwise
         this.angle = 0;
 
+        this.sensor = new Sensor(this);
         this.controls = new Controls();
-    }
-
-    // Draw to a canvas context
-    draw(ctx) {
-        ctx.save();
-        ctx.translate(this.x, this.y); // Rotation is centered at this coord
-        ctx.rotate(-this.angle);
-
-        ctx.beginPath();
-        ctx.rect(
-            // We removed `this.x` and `this.y` from the beginning after adding
-            // `translate()` above. Because it receives the car x, y and
-            // already puts it into the position. Adding those values here
-            // will offset the car by those values *again*, making it
-            // appear off-position.
-            - this.width  / 2,
-            - this.height / 2,
-            this.width,
-            this.height
-        );
-        ctx.fill();
-
-        ctx.restore(); // ?
     }
 
     update() {
         this.#move();
+        this.sensor.update();
     }
 
     #move() {
@@ -95,5 +74,30 @@ class Car {
         this.x -= Math.sin(this.angle) * this.speed;
         this.y -= Math.cos(this.angle) * this.speed;
     }
-    
+
+    // Draw to a canvas context
+    draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y); // Rotation is centered at this coord
+        ctx.rotate(-this.angle);
+
+        ctx.beginPath();
+        ctx.rect(
+            // We removed `this.x` and `this.y` from the beginning after adding
+            // `translate()` above. Because it receives the car x, y and
+            // already puts it into the position. Adding those values here
+            // will offset the car by those values *again*, making it
+            // appear off-position.
+            - this.width  / 2,
+            - this.height / 2,
+            this.width,
+            this.height
+        );
+        ctx.fill();
+
+        ctx.restore(); // ?
+
+        this.sensor.draw(ctx);
+    }
+
 }
