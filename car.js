@@ -1,5 +1,5 @@
 class Car {
-    constructor(x, y, width, height, controlType, maxSpeed) {
+    constructor(x, y, width, height, controlType, maxSpeed=3) {
         this.x = x;
         this.y = y;
         this.width  = width;
@@ -38,7 +38,6 @@ class Car {
             );
 
             const outputs = NeuralNetwork.feedForward(offsets, this.brain);
-            console.log(outputs);
 
             if (this.useBrain) {
                 this.controls.forward = outputs[0];
@@ -149,7 +148,7 @@ class Car {
     }
 
     // Draw to a canvas context
-    draw(ctx, carColor) {
+    draw(ctx, carColor, drawSensors=false) {
         if (this.damaged) {
             ctx.fillStyle = "gray";
         } else {
@@ -163,7 +162,7 @@ class Car {
         }
         ctx.fill();
 
-        if (this.sensor) {
+        if (this.sensor && drawSensors) {
             this.sensor.draw(ctx);
         }
     }
