@@ -15,7 +15,7 @@ if (localStorage.getItem("bestBrain")) {
         // We have to serialize it as JSON because localStorage only works with strings
         cars[i].brain = JSON.parse(localStorage.getItem("bestBrain"));
         if (i != 0) {
-            NeuralNetwork.mutate(cars[i].brain, 0.3);
+            NeuralNetwork.mutate(cars[i].brain, 0.2);
         }
     }
 }
